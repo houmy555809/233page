@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>自动全屏显示233</title>
+<style>
+  /* 全屏样式 */
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  /* 数字显示样式 */
+  .number {
+    position: absolute;
+    font-size: 24px;
+    font-weight: bold;
+  }
+</style>
+<script>
+  // 进入全屏
+  function goFullscreen(element) {
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if (element.mozRequestFullScreen) {
+      element.mozRequestFullScreen();
+    } else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) {
+      element.msRequestFullscreen();
+    }
+  }
+
+  // 在随机位置显示数字
+  function showNumber() {
+    var number = document.createElement('div');
+    number.className = 'number';
+    number.textContent = '233';
+    
+    // 随机位置
+    number.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+    number.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+
+    document.body.appendChild(number);
+
+    // 每1秒更换位置
+    setTimeout(function(){
+      //document.body.removeChild(number);
+      showNumber();
+    }, 100);
+  }
+
+  // 主函数
+  function main() {
+    // 尝试进入全屏
+    goFullscreen(document.documentElement);
+
+    // 显示数字
+    showNumber();
+  }
+</script>
+</head>
+<body onload="main()">
+</body>
+</html>
